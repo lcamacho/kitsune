@@ -29,10 +29,11 @@ import time
 from django.conf import settings
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.http import http_date
+import secrets
 
 # Use the system (hardware-based) random number generator if it exists.
 if hasattr(random, "SystemRandom"):
-    randrange = random.SystemRandom().randrange
+    randrange = secrets.SystemRandom().SystemRandom().randrange
 else:
     randrange = random.randrange
 
