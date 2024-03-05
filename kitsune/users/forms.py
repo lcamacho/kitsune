@@ -170,8 +170,8 @@ def username_allowed(username):
         return False
     blacklist = cache.get(USERNAME_CACHE_KEY)
     if blacklist is None:
-        f = open(settings.USERNAME_BLACKLIST, "r")
-        blacklist = [w.strip() for w in f.readlines()]
+        with open(settings.USERNAME_BLACKLIST, "r") as f:
+            blacklist = [w.strip() for w in f.readlines()]
         cache.set(USERNAME_CACHE_KEY, blacklist, settings.CACHE_SHORT_TIMEOUT)  # 1 hour
     # Lowercase
     username = username.lower()
