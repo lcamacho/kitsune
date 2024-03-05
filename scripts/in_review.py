@@ -33,7 +33,7 @@ def wrap(text, indent='    ', subsequent='    '):
 
 
 def fetch(url):
-    resp = requests.get(url)
+    resp = requests.get(url, timeout=60)
     if resp.status_code != 200:
         raise Exception(resp.text)
 
