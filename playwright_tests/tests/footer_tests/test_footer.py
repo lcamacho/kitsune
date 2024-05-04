@@ -1,9 +1,9 @@
 import pytest
-import requests
 import pytest_check as check
 
 from playwright_tests.core.testutilities import TestUtilities
 from urllib.parse import urljoin
+from security import safe_requests
 
 
 class TestFooter(TestUtilities):
@@ -36,7 +36,7 @@ class TestFooter(TestUtilities):
             header = {"User-Agent": f"{user_agent}"}
             # Remove this
             self.logger.info(f"Request header: {header}")
-            response = requests.get(url, headers=header)
+            response = safe_requests.get(url, headers=header)
 
             # Some links are returning status code 429.
             # We are currently treating them as pass cases.

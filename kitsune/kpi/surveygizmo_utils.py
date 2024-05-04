@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
 import requests
+from security import safe_requests
 
 
 SURVEYS = {
@@ -66,8 +67,7 @@ def get_email_addresses(survey, startdatetime, enddatetime):
         return emails
 
     while more_pages:
-        response = requests.get(
-            "https://restapi.surveygizmo.com/v2/survey/{survey}"
+        response = safe_requests.get("https://restapi.surveygizmo.com/v2/survey/{survey}"
             "/surveyresponse?"
             "filter[field][0]=datesubmitted"
             "&filter[operator][0]=>=&filter[value][0]={start}"
@@ -153,8 +153,7 @@ def get_exit_survey_results(survey, date):
         return summary
 
     while more_pages:
-        response = requests.get(
-            "https://restapi.surveygizmo.com/v2/survey/{survey}"
+        response = safe_requests.get("https://restapi.surveygizmo.com/v2/survey/{survey}"
             "/surveyresponse?"
             "filter[field][0]=datesubmitted"
             "&filter[operator][0]=>=&filter[value][0]={start}+0:0:0"

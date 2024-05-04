@@ -10,6 +10,7 @@ import os
 
 from playwright_tests.messages.homepage_messages import HomepageMessages
 from requests.exceptions import HTTPError
+from security import safe_requests
 
 
 @pytest.mark.usefixtures("setup")
@@ -65,7 +66,7 @@ class TestUtilities:
             try:
                 cleared_username = self.username_extraction_from_email(fxa_username)
                 # Fetching the FxA email verification code
-                response = requests.get(f"https://restmail.net/mail/{cleared_username}")
+                response = safe_requests.get(f"https://restmail.net/mail/{cleared_username}")
                 response.raise_for_status()
                 json_response = response.json()
                 fxa_verification_code = json_response[0]['headers']['x-signin-verify-code']

@@ -1,7 +1,5 @@
 import json
 from datetime import date, timedelta
-
-import requests
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from kitsune.kpi.models import (
@@ -13,6 +11,7 @@ from kitsune.kpi.models import (
     MetricKind,
 )
 from kitsune.kpi.surveygizmo_utils import SURVEYS
+from security import safe_requests
 
 
 class Command(BaseCommand):
@@ -40,8 +39,7 @@ class Command(BaseCommand):
         }
 
         while more_pages:
-            response = requests.get(
-                "https://restapi.surveygizmo.com/v2/survey/{survey}"
+            response = safe_requests.get("https://restapi.surveygizmo.com/v2/survey/{survey}"
                 "/surveyresponse?"
                 "filter[field][0]=datesubmitted"
                 "&filter[operator][0]=>=&filter[value][0]={start}+0:0:0"

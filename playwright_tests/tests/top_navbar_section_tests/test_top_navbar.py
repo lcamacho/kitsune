@@ -1,9 +1,9 @@
 import pytest
 import pytest_check as check
-import requests
 
 from playwright_tests.core.testutilities import TestUtilities
 from playwright_tests.messages.top_navbar_messages import TopNavbarMessages
+from security import safe_requests
 
 
 class TestTopNavbar(TestUtilities):
@@ -14,7 +14,7 @@ class TestTopNavbar(TestUtilities):
 
         image = self.sumo_pages.top_navbar.get_sumo_nav_logo()
         image_link = image.get_attribute("src")
-        response = requests.get(image_link, stream=True)
+        response = safe_requests.get(image_link, stream=True)
         check.is_true(response.status_code < 400, f"The {image_link} image is broken")
 
         self.logger.info(
@@ -42,7 +42,7 @@ class TestTopNavbar(TestUtilities):
         self.logger.info("Verifying that the SUMO logo is successfully displayed")
         image = self.sumo_pages.top_navbar.get_sumo_nav_logo()
         image_link = image.get_attribute("src")
-        response = requests.get(image_link, stream=True)
+        response = safe_requests.get(image_link, stream=True)
         check.is_true(response.status_code < 400, f"The {image_link} image is broken")
 
         self.logger.info(

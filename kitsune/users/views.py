@@ -1,7 +1,5 @@
 import json
 from ast import literal_eval
-
-import requests
 import waffle
 from django.conf import settings
 from django.contrib import auth, messages
@@ -59,6 +57,7 @@ from kitsune.users.utils import (
     get_oidc_fxa_setting,
 )
 from kitsune.wiki.models import user_documents, user_num_documents, user_redirects
+from security import safe_requests
 
 
 @logout_required
@@ -484,8 +483,7 @@ class WebhookView(View):
     def retrieve_matching_jwk(self, header):
         """Get the signing key by exploring the JWKS endpoint of the OP."""
 
-        response_jwks = requests.get(
-            self.get_settings("OIDC_OP_JWKS_ENDPOINT"),
+        response_jwks = safe_requests.get(self.get_settings("OIDC_OP_JWKS_ENDPOINT"),
             verify=self.get_settings("OIDC_VERIFY_SSL", True),
         )
         response_jwks.raise_for_status()
