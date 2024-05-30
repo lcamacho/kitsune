@@ -31,7 +31,7 @@ class LoggingEmailBackend(object):
 
     def log(self, level, msg):
         """Write a log message, prepending the current batch id."""
-        log.log(level, "Batch %s - %s" % (self.batch_id, msg))
+        log.log(level, "Batch %s - %s", self.batch_id, msg)
 
     def open(self):
         """Open a network connection."""

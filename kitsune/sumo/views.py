@@ -124,7 +124,7 @@ def test_memcached(host, port):
         s.connect((host, port))
         return True
     except Exception as exc:
-        log.critical("Failed to connect to memcached (%r): %s" % ((host, port), exc))
+        log.critical("Failed to connect to memcached (%r): %s", (host, port), exc)
         return False
     finally:
         s.close()

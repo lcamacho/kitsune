@@ -462,7 +462,7 @@ def static(path):
     try:
         return django_static(path)
     except ValueError as err:
-        log.error("Static helper error: %s" % err)
+        log.error("Static helper error: %s", err)
         return ""
 
 

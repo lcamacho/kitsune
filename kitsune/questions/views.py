@@ -1099,7 +1099,7 @@ def delete_question(request, question_id):
     product = question.product_slug
 
     # Handle confirm delete form POST
-    log.warning("User %s is deleting question with id=%s" % (request.user, question.id))
+    log.warning("User %s is deleting question with id=%s", request.user, question.id)
     question.delete()
 
     return HttpResponseRedirect(reverse("questions.list", args=[product]))
@@ -1118,7 +1118,7 @@ def delete_answer(request, question_id, answer_id):
         return render(request, "questions/confirm_answer_delete.html", {"answer": answer})
 
     # Handle confirm delete form POST
-    log.warning("User %s is deleting answer with id=%s" % (request.user, answer.id))
+    log.warning("User %s is deleting answer with id=%s", request.user, answer.id)
     answer.delete()
 
     return HttpResponseRedirect(reverse("questions.details", args=[question_id]))
@@ -1135,9 +1135,7 @@ def lock_question(request, question_id):
 
     question.is_locked = not question.is_locked
     log.info(
-        "User %s set is_locked=%s on question with id=%s "
-        % (request.user, question.is_locked, question.id)
-    )
+        "User %s set is_locked=%s on question with id=%s ", request.user, question.is_locked, question.id)
     question.save()
 
     return HttpResponseRedirect(question.get_absolute_url())
@@ -1154,9 +1152,7 @@ def archive_question(request, question_id):
 
     question.is_archived = not question.is_archived
     log.info(
-        "User %s set is_archived=%s on question with id=%s "
-        % (request.user, question.is_archived, question.id)
-    )
+        "User %s set is_archived=%s on question with id=%s ", request.user, question.is_archived, question.id)
     question.save()
 
     return HttpResponseRedirect(question.get_absolute_url())
@@ -1184,7 +1180,7 @@ def edit_answer(request, question_id, answer_id):
             answer.updated = datetime.now()
             answer_preview = answer
         else:
-            log.warning("User %s is editing answer with id=%s" % (request.user, answer.id))
+            log.warning("User %s is editing answer with id=%s", request.user, answer.id)
 
             if form.cleaned_data.get("is_spam"):
                 _add_to_moderation_queue(request, answer)

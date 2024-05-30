@@ -109,7 +109,7 @@ def _is_leader(locale, user):
     try:
         locale_team = Locale.objects.get(locale=locale)
     except Locale.DoesNotExist:
-        log.warning("Locale not created for %s" % locale)
+        log.warning("Locale not created for %s", locale)
         return False
 
     return user in locale_team.leaders.all()
@@ -126,7 +126,7 @@ def _is_reviewer(locale, user):
     try:
         locale_team = Locale.objects.get(locale=locale)
     except Locale.DoesNotExist:
-        log.warning("Locale not created for %s" % locale)
+        log.warning("Locale not created for %s", locale)
         return False
 
     return user in locale_team.reviewers.all()

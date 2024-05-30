@@ -46,10 +46,10 @@ def send_reviewed_notification(revision_id: int, document_id: int, message: str)
         return
 
     if revision.reviewer == revision.creator:
-        log.debug("Revision (id=%s) reviewed by creator, skipping email" % revision.id)
+        log.debug("Revision (id=%s) reviewed by creator, skipping email", revision.id)
         return
 
-    log.debug("Sending reviewed email for revision (id=%s)" % revision.id)
+    log.debug("Sending reviewed email for revision (id=%s)", revision.id)
 
     url = reverse("wiki.document_revisions", locale=document.locale, args=[document.slug])
 
@@ -221,7 +221,7 @@ def _rebuild_kb_chunk(data):
     redirects won't be auto-pruned when they're 404s.
 
     """
-    log.info("Rebuilding %s documents." % len(data))
+    log.info("Rebuilding %s documents.", len(data))
 
     messages = []
     for pk in data:
@@ -233,7 +233,7 @@ def _rebuild_kb_chunk(data):
             # link to a document but the document isn't there), log an error:
             url = document.redirect_url()
             if url and resolves_to_document_view(url) and not document.redirect_document():
-                log.warn("Invalid redirect document: %d" % pk)
+                log.warn("Invalid redirect document: %d", pk)
 
             html = document.parse_and_calculate_links()
             if document.html != html:

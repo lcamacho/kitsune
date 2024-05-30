@@ -970,7 +970,7 @@ class UnhelpfulReadout(Readout):
     try:
         hide_readout = redis_client("helpfulvotes").llen(key) == 0
     except RedisError as e:
-        log.error("Redis error: %s" % e)
+        log.error("Redis error: %s", e)
         hide_readout = True
 
     def rows(self, max=None):
@@ -981,7 +981,7 @@ class UnhelpfulReadout(Readout):
             max_get = max or length
             output = redis.lrange(REDIS_KEY, 0, max_get)
         except RedisError as e:
-            log.error("Redis error: %s" % e)
+            log.error("Redis error: %s", e)
             output = []
 
         data = []

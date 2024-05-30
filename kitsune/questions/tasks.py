@@ -20,14 +20,14 @@ log = logging.getLogger("k.task")
 def update_question_votes(question_id):
     from kitsune.questions.models import Question
 
-    log.debug("Got a new QuestionVote for question_id=%s." % question_id)
+    log.debug("Got a new QuestionVote for question_id=%s.", question_id)
 
     try:
         q = Question.objects.get(id=question_id)
         q.sync_num_votes_past_week()
         q.save(force_update=True)
     except Question.DoesNotExist:
-        log.info("Question id=%s deleted before task." % question_id)
+        log.info("Question id=%s deleted before task.", question_id)
 
 
 @shared_task(rate_limit="4/s")
@@ -35,7 +35,7 @@ def update_question_vote_chunk(question_ids):
     """Given a list of questions, update the "num_votes_past_week" attribute of each one."""
     from kitsune.questions.models import Question, QuestionVote
 
-    log.info("Calculating past week votes for %s questions." % len(question_ids))
+    log.info("Calculating past week votes for %s questions.", len(question_ids))
 
     past_week = (datetime.now() - timedelta(days=7)).replace(
         hour=0, minute=0, second=0, microsecond=0
@@ -69,8 +69,7 @@ def update_answer_pages(question_id: int):
         return
 
     log.debug(
-        "Recalculating answer page numbers for question %s: %s" % (question.pk, question.title)
-    )
+        "Recalculating answer page numbers for question %s: %s", question.pk, question.title)
 
     i = 0
     answers = question.answers.using("default").order_by("created")

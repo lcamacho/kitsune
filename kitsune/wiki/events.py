@@ -83,7 +83,7 @@ class EditDocumentEvent(InstanceEvent):
     def _mails(self, users_and_watches):
         revision = self.revision
         document = revision.document
-        log.debug("Sending edited notification email for document (id=%s)" % document.id)
+        log.debug("Sending edited notification email for document (id=%s)", document.id)
 
         subject = _lazy("{title} was edited by {creator}")
         url = reverse("wiki.document_revisions", locale=document.locale, args=[document.slug])
@@ -210,7 +210,7 @@ class ReviewableRevisionInLocaleEvent(_RevisionConstructor, _LocaleAndProductFil
     def _mails(self, users_and_watches):
         revision = self.revision
         document = revision.document
-        log.debug("Sending ready for review email for revision (id=%s)" % revision.id)
+        log.debug("Sending ready for review email for revision (id=%s)", revision.id)
         subject = _lazy("{title} is ready for review ({creator})")
         url = reverse(
             "wiki.review_revision",
@@ -262,7 +262,7 @@ class ReadyRevisionEvent(_RevisionConstructor, _ProductFilter, Event):
         """Send readiness mails."""
         revision = self.revision
         document = revision.document
-        log.debug("Sending ready notifications for revision (id=%s)" % revision.id)
+        log.debug("Sending ready notifications for revision (id=%s)", revision.id)
 
         subject = _lazy("{title} has a revision ready for localization")
 
@@ -343,7 +343,7 @@ class ApprovedOrReadyUnion(EventUnion):
         revision = self.revision
         document = revision.document
         is_ready = revision.is_ready_for_localization
-        log.debug("Sending approved/ready notifications for revision (id=%s)" % revision.id)
+        log.debug("Sending approved/ready notifications for revision (id=%s)", revision.id)
 
         # Localize the subject and message with the appropriate
         # context. If there is an error, fall back to English.
