@@ -177,7 +177,7 @@ class FXAAuthBackend(OIDCAuthenticationBackend):
                 settings.FXA_OP_SUBSCRIPTION_ENDPOINT,
                 headers={"Authorization": "Bearer {0}".format(access_token)},
                 verify=self.get_settings("OIDC_VERIFY_SSL", True),
-            )
+            timeout=60)
             sub_response.raise_for_status()
         except requests.exceptions.RequestException:
             log.error("Failed to fetch subscription status", exc_info=True)

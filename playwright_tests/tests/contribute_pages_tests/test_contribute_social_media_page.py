@@ -144,7 +144,7 @@ class TestContributeSocialMediaPage(TestUtilities):
 
         for link in self.sumo_pages.ways_to_contribute_pages.get_all_page_image_links():
             image_link = link.get_attribute("src")
-            response = requests.get(image_link, stream=True)
+            response = requests.get(image_link, stream=True, timeout=60)
             check.is_true(response.status_code < 400, f"The {image_link} image is broken")
 
     # C2176362
