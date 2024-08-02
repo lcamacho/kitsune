@@ -64,7 +64,7 @@ def up_image_async(request, model_name, object_pk):
         obj.clear_cached_images()
 
     if isinstance(file_info, dict) and "thumbnail_url" in file_info:
-        return HttpResponse(json.dumps({"status": "success", "file": file_info}))
+        return HttpResponse(json.dumps({"status": "success", "file": file_info}), content_type="application/json")
 
     message = _("Invalid or no image received.")
     return HttpResponseBadRequest(
@@ -103,4 +103,4 @@ def del_image_async(request, image_id):
         # like questions and answers do, call it
         content_object.clear_cached_images()
 
-    return HttpResponse(json.dumps({"status": "success"}))
+    return HttpResponse(json.dumps({"status": "success"}), content_type="application/json")

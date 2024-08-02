@@ -231,7 +231,7 @@ def upload_async(request, media_type="image"):
 
     if isinstance(file_info, dict) and "thumbnail_url" in file_info:
         schedule_rebuild_kb()
-        return HttpResponse(json.dumps({"status": "success", "file": file_info}))
+        return HttpResponse(json.dumps({"status": "success", "file": file_info}), content_type="application/json")
 
     message = _("Could not upload your image.")
     return HttpResponseBadRequest(

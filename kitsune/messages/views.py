@@ -149,7 +149,7 @@ def delete(request, msgid=None, msgtype="inbox"):
             contrib_messages.add_message(request, contrib_messages.SUCCESS, msg)
 
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
-            return HttpResponse(json.dumps({"message": m} for m in messages))
+            return HttpResponse(json.dumps({"message": m} for m in messages), content_type="application/json")
 
         return HttpResponseRedirect(reverse("messages.{t}".format(t=msgtype)))
 
