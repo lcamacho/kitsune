@@ -4,6 +4,7 @@ import textwrap
 
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
+from security import safe_command
 
 
 INDENT = " " * 3
@@ -66,8 +67,7 @@ class Command(BaseCommand):
     def run(self, description, *cmd_and_args):
         self.stdout.write(f"{description}...", ending="")
         try:
-            subprocess.run(
-                cmd_and_args,
+            safe_command.run(subprocess.run, cmd_and_args,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 check=True,
