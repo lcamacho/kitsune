@@ -720,7 +720,7 @@ STATICI18N_ROOT = path("jsi18n")
 SESSION_COOKIE_AGE = config(
     "SESSION_COOKIE_AGE", default=4 * 7 * 24 * 60 * 60, cast=int
 )  # 4 weeks
-SESSION_COOKIE_SECURE = config("SESSION_COOKIE_SECURE", default=not DEBUG, cast=bool)
+SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_NAME = "session_id"
 SESSION_ENGINE = config("SESSION_ENGINE", default="django.contrib.sessions.backends.cache")
