@@ -58,7 +58,7 @@ def _send_simple_push(endpoint, version, max_retries=3, _retry_count=0):
     """
 
     try:
-        r = requests.put(endpoint, "version={}".format(version))
+        r = requests.put(endpoint, "version={}".format(version), timeout=60)
     except RequestException as e:
         # This is something like connection error, not a server error.
         if _retry_count < max_retries:
