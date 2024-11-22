@@ -16,6 +16,7 @@ from kitsune.products.models import Product
 from kitsune.sumo.urlresolvers import reverse
 from kitsune.users.models import Profile
 from kitsune.users.utils import add_to_contributors, get_oidc_fxa_setting
+from security import safe_requests
 
 log = logging.getLogger("k.users")
 
@@ -173,7 +174,7 @@ class FXAAuthBackend(OIDCAuthenticationBackend):
 
         # Fetch subscription information
         try:
-            sub_response = requests.get(
+            sub_response = safe_requests.get(
                 settings.FXA_OP_SUBSCRIPTION_ENDPOINT,
                 headers={"Authorization": "Bearer {0}".format(access_token)},
                 verify=self.get_settings("OIDC_VERIFY_SSL", True),
