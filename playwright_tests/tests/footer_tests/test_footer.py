@@ -36,7 +36,7 @@ class TestFooter(TestUtilities):
             header = {"User-Agent": f"{user_agent}"}
             # Remove this
             self.logger.info(f"Request header: {header}")
-            response = requests.get(url, headers=header)
+            response = requests.get(url, headers=header, timeout=60)
 
             # Some links are returning status code 429.
             # We are currently treating them as pass cases.
