@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import json
-import random
 from datetime import datetime, timedelta
 from string import ascii_letters
 from unittest import mock
@@ -29,6 +28,7 @@ from kitsune.tags.tests import TagFactory
 from kitsune.tidings.models import Watch
 from kitsune.upload.models import ImageAttachment
 from kitsune.users.tests import UserFactory, add_permission
+import secrets
 
 
 class AnswersTemplateTestCase(TestCase):
@@ -1178,7 +1178,7 @@ class QuestionsTemplateTestCase(TestCase):
 
     def test_truncated_text_is_stripped(self):
         """Verify we strip html from truncated text."""
-        long_str = "".join(random.choice(ascii_letters) for x in range(170))
+        long_str = "".join(secrets.choice(ascii_letters) for x in range(170))
         QuestionFactory(content="<p>%s</p>" % long_str)
         response = self.client.get(reverse("questions.list", args=["all"]))
 

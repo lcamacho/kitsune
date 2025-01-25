@@ -1,4 +1,3 @@
-import random
 from smtplib import SMTPException
 
 from django.conf import settings
@@ -11,6 +10,7 @@ from django.db.models import Q
 from kitsune.tidings.models import EmailUser, Watch, WatchFilter, multi_raw
 from kitsune.tidings.tasks import send_emails
 from kitsune.tidings.utils import collate, hash_to_unsigned
+import secrets
 
 
 class ActivationRequestFailed(Exception):
@@ -415,7 +415,7 @@ class Event(object):
             # Letters that can't be mistaken for other letters or numbers in
             # most fonts, in case people try to type these:
             distinguishable_letters = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXYZ"
-            secret = "".join(random.choice(distinguishable_letters) for x in range(10))
+            secret = "".join(secrets.choice(distinguishable_letters) for x in range(10))
             # Registered users don't need to confirm, but anonymous users do.
             is_active = "user" in create_kwargs or not settings.TIDINGS_CONFIRM_ANONYMOUS_WATCHES
             if object_id:
