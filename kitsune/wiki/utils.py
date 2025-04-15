@@ -45,7 +45,7 @@ def generate_short_url(long_url):
     }
     headers = {"Authorization": f"Bearer {settings.BITLY_ACCESS_TOKEN}"}
 
-    resp = requests.post(url=settings.BITLY_API_URL, json=keys, headers=headers)
+    resp = requests.post(url=settings.BITLY_API_URL, json=keys, headers=headers, timeout=60)
     resp.raise_for_status()
 
     return resp.json().get("link", "")

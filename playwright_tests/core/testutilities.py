@@ -57,7 +57,7 @@ class TestUtilities:
 
     # Clearing restmail.
     def clear_fxa_email(self, fxa_username: str):
-        requests.delete(f"https://restmail.net/mail/{fxa_username}")
+        requests.delete(f"https://restmail.net/mail/{fxa_username}", timeout=60)
 
     # Mechanism of fetching the fxa verification code from restamil.
     def get_fxa_verification_code(self, fxa_username: str, max_attempts=5, poll_interval=5) -> str:
@@ -65,7 +65,7 @@ class TestUtilities:
             try:
                 cleared_username = self.username_extraction_from_email(fxa_username)
                 # Fetching the FxA email verification code
-                response = requests.get(f"https://restmail.net/mail/{cleared_username}")
+                response = requests.get(f"https://restmail.net/mail/{cleared_username}", timeout=60)
                 response.raise_for_status()
                 json_response = response.json()
                 fxa_verification_code = json_response[0]['headers']['x-signin-verify-code']

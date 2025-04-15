@@ -109,7 +109,7 @@ class TestContributePage(TestUtilities):
 
         for link in self.sumo_pages.contribute_page.get_all_page_links():
             image_link = link.get_attribute("src")
-            response = requests.get(image_link, stream=True)
+            response = requests.get(image_link, stream=True, timeout=60)
             check.is_true(response.status_code < 400, f'The {image_link} image is broken!')
 
     # C1949333

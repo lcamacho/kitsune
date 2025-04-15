@@ -14,7 +14,7 @@ class TestTopNavbar(TestUtilities):
 
         image = self.sumo_pages.top_navbar.get_sumo_nav_logo()
         image_link = image.get_attribute("src")
-        response = requests.get(image_link, stream=True)
+        response = requests.get(image_link, stream=True, timeout=60)
         check.is_true(response.status_code < 400, f"The {image_link} image is broken")
 
         self.logger.info(
@@ -42,7 +42,7 @@ class TestTopNavbar(TestUtilities):
         self.logger.info("Verifying that the SUMO logo is successfully displayed")
         image = self.sumo_pages.top_navbar.get_sumo_nav_logo()
         image_link = image.get_attribute("src")
-        response = requests.get(image_link, stream=True)
+        response = requests.get(image_link, stream=True, timeout=60)
         check.is_true(response.status_code < 400, f"The {image_link} image is broken")
 
         self.logger.info(
