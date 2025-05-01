@@ -1,4 +1,3 @@
-import random
 
 import requests
 from django.conf import settings
@@ -11,6 +10,7 @@ from django.shortcuts import get_object_or_404
 from kitsune.dashboards import LAST_7_DAYS
 from kitsune.dashboards.models import WikiDocumentVisits
 from kitsune.wiki.models import Document, Revision
+import secrets
 
 
 def active_contributors(from_date, to_date=None, locale=None, product=None):
@@ -144,7 +144,7 @@ def get_featured_articles(product=None, locale=settings.WIKI_DEFAULT_LANGUAGE):
 
     if len(documents) <= 4:
         return documents
-    return random.sample(documents, 4)
+    return secrets.SystemRandom().sample(documents, 4)
 
 
 def get_visible_document_or_404(
