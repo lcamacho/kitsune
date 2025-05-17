@@ -48,7 +48,7 @@ def flag(request, content_type=None, model=None, object_id=None, **kwargs):
         msg = _("You have flagged this content. A moderator will review your submission shortly.")
 
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        return HttpResponse(json.dumps({"message": msg}))
+        return HttpResponse(json.dumps({"message": msg}), content_type="application/json")
     elif next:
         messages.add_message(request, messages.INFO, msg)
         return HttpResponseRedirect(next)

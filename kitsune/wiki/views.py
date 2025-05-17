@@ -1249,7 +1249,7 @@ def helpful_vote(request, document_slug):
         if survey:
             r.update(survey=survey)
 
-        return HttpResponse(json.dumps(r))
+        return HttpResponse(json.dumps(r), content_type="application/json")
 
     return HttpResponseRedirect(revision.document.get_absolute_url())
 
@@ -1270,7 +1270,7 @@ def unhelpful_survey(request):
         # Save the survey in JSON format, taking care not to exceed 1000 chars.
         vote.add_metadata("survey", truncated_json_dumps(survey, 1000, "comment"))
 
-    return HttpResponse(json.dumps({"message": _("Thanks for making us better!")}))
+    return HttpResponse(json.dumps({"message": _("Thanks for making us better!")}), content_type="application/json")
 
 
 @require_GET
@@ -1433,7 +1433,7 @@ def mark_ready_for_l10n_revision(request, document_slug, revision_id):
 
         ReadyRevisionEvent(revision).fire(exclude=[request.user])
 
-        return HttpResponse(json.dumps({"message": revision_id}))
+        return HttpResponse(json.dumps({"message": revision_id}), content_type="application/json")
 
     return HttpResponseBadRequest()
 

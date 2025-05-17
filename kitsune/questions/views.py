@@ -886,7 +886,7 @@ def question_vote(request, question_id):
                 },
             )
 
-            return HttpResponse(json.dumps({"html": html, "ignored": request.limited}))
+            return HttpResponse(json.dumps({"html": html, "ignored": request.limited}), content_type="application/json")
 
     return HttpResponseRedirect(question.get_absolute_url())
 
@@ -908,7 +908,7 @@ def answer_vote(request, question_id, answer_id):
 
     if request.limited:
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
-            return HttpResponse(json.dumps({"ignored": True}))
+            return HttpResponse(json.dumps({"ignored": True}), content_type="application/json")
         else:
             return HttpResponseRedirect(answer.get_absolute_url())
 
@@ -942,7 +942,7 @@ def answer_vote(request, question_id, answer_id):
         message = _("You already voted on this reply.")
 
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        return HttpResponse(json.dumps({"message": message}))
+        return HttpResponse(json.dumps({"message": message}), content_type="application/json")
 
     return HttpResponseRedirect(answer.get_absolute_url())
 
@@ -1212,7 +1212,7 @@ def watch_question(request, question_id):
             "Please try again tomorrow."
         )
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
-            return HttpResponse(json.dumps({"message": msg, "ignored": True}))
+            return HttpResponse(json.dumps({"message": msg, "ignored": True}), content_type="application/json")
 
         messages.add_message(request, messages.ERROR, msg)
         return HttpResponseRedirect(
@@ -1245,7 +1245,7 @@ def watch_question(request, question_id):
                 if request.user.is_authenticated
                 else _("You should receive an email shortly " "to confirm your subscription.")
             )
-            return HttpResponse(json.dumps({"message": msg}))
+            return HttpResponse(json.dumps({"message": msg}), content_type="application/json")
 
         if request.POST.get("from_vote"):
             tmpl = "questions/includes/question_vote_thanks.html"
@@ -1255,7 +1255,7 @@ def watch_question(request, question_id):
         html = render_to_string(
             tmpl, context={"question": question, "watch_form": form}, request=request
         )
-        return HttpResponse(json.dumps({"html": html}))
+        return HttpResponse(json.dumps({"html": html}), content_type="application/json")
 
     if msg:
         messages.add_message(request, messages.ERROR, msg)
