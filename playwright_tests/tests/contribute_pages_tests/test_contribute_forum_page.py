@@ -1,6 +1,5 @@
 import pytest
 import pytest_check as check
-import requests
 
 from playwright_tests.core.testutilities import TestUtilities
 from playwright_tests.messages.contribute_pages_messages.con_forum_page_messages import (
@@ -16,6 +15,7 @@ from playwright_tests.messages.contribute_pages_messages.con_page_messages impor
 from playwright_tests.messages.contribute_pages_messages.con_social_support_messages import (
     ContributeSocialSupportMessages)
 from playwright_tests.messages.homepage_messages import HomepageMessages
+from security import safe_requests
 
 
 class TestContributeForumPage(TestUtilities):
@@ -131,7 +131,7 @@ class TestContributeForumPage(TestUtilities):
         self.logger.info("Verifying that the Contribute forum page images are not broken")
         for link in self.sumo_pages.ways_to_contribute_pages.get_all_page_image_links():
             image_link = link.get_attribute("src")
-            response = requests.get(image_link, stream=True)
+            response = safe_requests.get(image_link, stream=True)
             check.is_true(response.status_code < 400, f"The {image_link} image is broken")
 
     # C2165415

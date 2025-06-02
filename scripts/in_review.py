@@ -4,8 +4,7 @@ import subprocess
 import sys
 import textwrap
 import urllib.request, urllib.parse, urllib.error
-
-import requests
+from security import safe_requests
 
 
 BUGZILLA_API_URL = 'https://bugzilla.mozilla.org/rest/'
@@ -33,7 +32,7 @@ def wrap(text, indent='    ', subsequent='    '):
 
 
 def fetch(url):
-    resp = requests.get(url)
+    resp = safe_requests.get(url)
     if resp.status_code != 200:
         raise Exception(resp.text)
 
