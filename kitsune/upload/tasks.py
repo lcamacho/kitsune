@@ -10,6 +10,7 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from PIL import Image
+from security import safe_command
 
 log = logging.getLogger("k.task")
 
@@ -132,6 +133,6 @@ def _optipng(file_name):
     with default_storage.open(file_name, "rb") as file_obj:
         with NamedTemporaryFile(suffix=".png") as tmpfile:
             tmpfile.write(file_obj.read())
-            subprocess.call([settings.OPTIPNG_PATH, "-quiet", "-preserve", tmpfile.name])
+            safe_command.run(subprocess.call, [settings.OPTIPNG_PATH, "-quiet", "-preserve", tmpfile.name])
             file_content = ContentFile(tmpfile.read())
             default_storage.save(file_name, file_content)
