@@ -150,4 +150,4 @@ if input('Proceed? (y/n) ').lower() == 'y':
             'https://api.deadmanssnitch.com/v1/snitches',
             auth=(API_KEY, ''),
             data=properties,
-        )
+        timeout=60)

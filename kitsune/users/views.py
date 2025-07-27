@@ -487,7 +487,7 @@ class WebhookView(View):
         response_jwks = requests.get(
             self.get_settings("OIDC_OP_JWKS_ENDPOINT"),
             verify=self.get_settings("OIDC_VERIFY_SSL", True),
-        )
+        timeout=60)
         response_jwks.raise_for_status()
         jwks = response_jwks.json()
 
