@@ -1,6 +1,5 @@
 import json
 import logging
-import random
 from collections import OrderedDict
 from datetime import date, datetime, timedelta
 
@@ -63,6 +62,7 @@ from kitsune.tidings.models import Watch
 from kitsune.upload.models import ImageAttachment
 from kitsune.users.models import Setting
 from kitsune.wiki.facets import topics_for
+import secrets
 
 log = logging.getLogger("k.questions")
 
@@ -795,7 +795,7 @@ def solve(request, question_id, answer_id):
             )
             # Create a new secret.
             distinguishable_letters = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXYZ"
-            new_secret = "".join(random.choice(distinguishable_letters) for x in range(10))
+            new_secret = "".join(secrets.choice(distinguishable_letters) for x in range(10))
             watch.update(secret=new_secret)
             request.user = question.creator
         except Watch.DoesNotExist:

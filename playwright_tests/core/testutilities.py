@@ -5,11 +5,11 @@ import pytest
 import time
 import re
 import json
-import random
 import os
 
 from playwright_tests.messages.homepage_messages import HomepageMessages
 from requests.exceptions import HTTPError
+import secrets
 
 
 @pytest.mark.usefixtures("setup")
@@ -89,7 +89,7 @@ class TestUtilities:
 
     # Random number generator.
     def generate_random_number(self, min_value, max_value) -> int:
-        return random.randint(min_value, max_value)
+        return secrets.SystemRandom().randint(min_value, max_value)
 
     # Extracting numbers from string.
     def number_extraction_from_string(self, string_to_analyze: str) -> int:
